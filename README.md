@@ -1,4 +1,4 @@
-# MyoCarpoolTunnelExerciser
+# myoPhysio
 iOS app that helps you rehab for carpool tunnel using the Myo armband
 
 #What it does:
