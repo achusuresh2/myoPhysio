@@ -1,8 +1,12 @@
 package com.example.hrishikeshsuresh.myophysio1;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -33,6 +37,7 @@ public class MainActivity extends ActionBarActivity {
     CountDownTimer countDownTimer;
     private ImageView actionImage;
     Intent myoIntent;
+
 
     //States
     boolean monitoring = false;
@@ -143,6 +148,12 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NotificationManager notif=(NotificationManager)getSystemService(this.NOTIFICATION_SERVICE);
+        Notification notify=new Notification(R.drawable.completed,"myoPhysio",System.currentTimeMillis());
+        PendingIntent pending= PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), 0);
+
+        notify.setLatestEventInfo(getApplicationContext(), "myoPhysio", "Start training with myoPhysio", pending);
+        notif.notify(0, notify);
         setContentView(R.layout.activity_main);
 
         //Activate the Myo
@@ -164,7 +175,6 @@ public class MainActivity extends ActionBarActivity {
 
         //Text to speech
          tts = new TextToSpeech(this, null);
-
         waitForPose();
 
     }
@@ -174,7 +184,7 @@ public class MainActivity extends ActionBarActivity {
             speak("Make " + instructionsDisplay[currentPose]);
             actionImage.setImageResource(neutralImages[currentPose]);
             timeRemaining = durations[currentPose];
-            countdownText.setText(durations[currentPose] /1000 + " second(s) remaining");
+        countdownText.setText(durations[currentPose] / 1000 + " second(s) remaining");
             monitoring = true;
 
     }

@@ -1,5 +1,8 @@
 package com.example.hrishikeshsuresh.myophysio1;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -17,7 +20,12 @@ public class WelcomeActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        NotificationManager notif=(NotificationManager)getSystemService(this.NOTIFICATION_SERVICE);
+        Notification notify=new Notification(R.drawable.completed,"myoPhysio",System.currentTimeMillis());
+        PendingIntent pending= PendingIntent.getActivity(this, 0, new Intent(), 0);
 
+        notify.setLatestEventInfo(getApplicationContext(), "myoPhysio", "Start training with myoPhysio", pending);
+        notif.notify(0, notify);
         btnStart   = (Button) findViewById(R.id.startSessionButton);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
